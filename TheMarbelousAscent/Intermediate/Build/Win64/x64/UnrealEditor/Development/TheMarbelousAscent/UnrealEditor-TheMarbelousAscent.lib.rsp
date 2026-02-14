@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-TheMarbelousAscent.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
+"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.cpp.obj"
+"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
+"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Default.rc2.res"
+/OUT:"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/UnrealEditor-TheMarbelousAscent.lib"

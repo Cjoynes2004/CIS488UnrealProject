@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "TheMarbelousAscent",
+			"Path": "..\\Source\\TheMarbelousAscent.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "TheMarbelousAscentEditor",
+			"Path": "..\\Source\\TheMarbelousAscentEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
