@@ -1,11 +1,11 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\themarbelousascent\\permoduleinline.gen.cpp",
+        "Source": "c:\\projects\\cis488unrealproject\\themarbelousascent\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\themarbelousascent\\permoduleinline.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\intermediate\\build\\win64\\x64\\themarbelousascenteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
+        "PCH": "c:\\projects\\cis488unrealproject\\themarbelousascent\\intermediate\\build\\win64\\x64\\themarbelousascenteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
         "Includes": [
-            "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\themarbelousascent\\definitions.themarbelousascent.h",
+            "c:\\projects\\cis488unrealproject\\themarbelousascent\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\themarbelousascent\\definitions.themarbelousascent.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl"
         ],
         "ImportedModules": [],
