@@ -20,7 +20,7 @@
 /ALTERNATENAME:__imp___std_init_once_complete=__imp_InitOnceComplete
 /DELAYLOAD:"d3d12.dll"
 /DELAYLOAD:"DBGHELP.DLL"
-/LIBPATH:"C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.44.35207/lib/x64"
+/LIBPATH:"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/lib/x64"
 /LIBPATH:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22621.0/ucrt/x64"
 /LIBPATH:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22621.0/um/x64"
 /NODEFAULTLIB:"LIBCMT"
@@ -36,10 +36,10 @@
 /FUNCTIONPADMIN:6
 /NOIMPLIB
 /NOEXP
-"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
-"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.cpp.obj"
-"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
-"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Default.rc2.res"
+"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
+"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.cpp.obj"
+"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
+"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Default.rc2.res"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/Core/UnrealEditor-Core.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/CoreUObject/UnrealEditor-CoreUObject.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/Engine/UnrealEditor-Engine.lib"
@@ -70,6 +70,6 @@
 "synchronization.lib"
 "dwmapi.lib"
 "imm32.lib"
-/OUT:"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.dll"
-/PDB:"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.pdb"
+/OUT:"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.dll"
+/PDB:"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.pdb"
 /ignore:4078

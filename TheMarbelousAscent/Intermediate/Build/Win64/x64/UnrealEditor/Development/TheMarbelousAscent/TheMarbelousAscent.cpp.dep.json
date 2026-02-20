@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\source\\themarbelousascent\\themarbelousascent.cpp",
+        "Source": "c:\\projects\\cis488unrealproject\\themarbelousascent\\source\\themarbelousascent\\themarbelousascent.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\intermediate\\build\\win64\\x64\\themarbelousascenteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
+        "PCH": "c:\\projects\\cis488unrealproject\\themarbelousascent\\intermediate\\build\\win64\\x64\\themarbelousascenteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
         "Includes": [
-            "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\themarbelousascent\\definitions.themarbelousascent.h",
-            "c:\\users\\cjoyn\\onedrive\\documents\\unreal projects\\themarbelousascent\\source\\themarbelousascent\\themarbelousascent.h"
+            "c:\\projects\\cis488unrealproject\\themarbelousascent\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\themarbelousascent\\definitions.themarbelousascent.h",
+            "c:\\projects\\cis488unrealproject\\themarbelousascent\\source\\themarbelousascent\\themarbelousascent.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

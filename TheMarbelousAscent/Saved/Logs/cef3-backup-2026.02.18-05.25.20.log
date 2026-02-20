@@ -1,0 +1,22 @@
+[17000:12432:0217/215526.442:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[17000:12432:0217/215526.469:ERROR:os_crypt_win.cc(100)] Failed to decrypt: Key not valid for use in specified state. (0x8009000B)
+[17000:24928:0217/215526.496:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
+[17000:12432:0217/215526.519:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[17000:12432:0217/215533.623:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
+[17000:22888:0217/215533.625:WARNING:leveldb_database.cc(141)] Unable to open C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata: IO error: C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[17000:22888:0217/215533.627:WARNING:leveldb_database.cc(141)] Unable to open C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata: IO error: C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[17000:22888:0217/215533.631:WARNING:leveldb_database.cc(141)] Unable to open C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata: IO error: C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[17000:22888:0217/215533.633:WARNING:leveldb_database.cc(141)] Unable to open C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata: IO error: C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[17000:22888:0217/215535.110:WARNING:value_store_frontend.cc(47)] Reading ahfgeienlihckogmohjhadlkjgocpleb.alarms from  failed: IO error: .../MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[17000:22888:0217/215535.117:WARNING:value_store_frontend.cc(47)] Reading mhjfbmdgcfjbbpaeojofohoefgiehjai.alarms from  failed: IO error: .../MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[17000:24136:0217/215535.231:WARNING:leveldb_database.cc(141)] Unable to open C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\GCM Store\Encryption: IO error: C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\GCM Store\Encryption/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[13920:24636:0217/215535.818:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-71CD954BB653A563E02DA97D24CC158F will be ignored
+[23564:14920:0217/215538.771:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -107
+[23564:14920:0217/215538.772:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -100
+[23564:14920:0217/215539.338:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -107
+[23564:14920:0217/215539.339:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -107
+[23564:14920:0217/215548.505:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -100
+[23564:14920:0217/215550.443:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -107
+[23564:14920:0217/215556.695:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -100
+[23564:14920:0217/215600.547:ERROR:ssl_client_socket_impl.cc(882)] handshake failed; returned -1, SSL error code 1, net_error -107
+[17000:12432:0218/002520.393:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
