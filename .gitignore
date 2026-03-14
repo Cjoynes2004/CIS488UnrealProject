@@ -71,7 +71,8 @@ Saved/*
 Intermediate/*
 Plugins/**/Intermediate/*
 
-# Cache files for the editor to use
-DerivedDataCache/*
-/TheMarbelousAscent/Saved
-/TheMarbelousAscent/Saved
+# Unreal Generated Folders
+TheMarbelousAscent/Saved/
+TheMarbelousAscent/Intermediate/
+TheMarbelousAscent/Binaries/
+TheMarbelousAscent/DerivedDataCache/

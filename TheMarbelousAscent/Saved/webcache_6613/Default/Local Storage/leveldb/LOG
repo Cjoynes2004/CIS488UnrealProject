@@ -1,3 +1,2 @@
-2026/02/24-16:46:08.869 6d0c Reusing MANIFEST C:\Users\cjoyn\OneDrive\Documents\Unreal Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
-2026/02/24-16:46:08.876 6d0c Recovering log #3
-2026/02/24-16:46:08.881 6d0c Reusing old log C:\Users\cjoyn\OneDrive\Documents\Unreal Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\Local Storage\leveldb/000003.log 
+2026/02/28-18:44:08.558 2168 Creating DB C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\Local Storage\leveldb since it was missing.
+2026/02/28-18:44:08.573 2168 Reusing MANIFEST C:\Projects\CIS488UnrealProject\TheMarbelousAscent\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
