@@ -1,4 +1,4 @@
-"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.cpp"
+"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.cpp"
 /I "."
 /I "../Intermediate/Build/Win64/UnrealEditor/Inc/CoreUObject/UHT"
 /I "../Intermediate/Build/Win64/UnrealEditor/Inc/CoreUObject/VerseVMBytecode"
@@ -21,10 +21,10 @@
 /external:I "C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/um"
 /external:I "C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/winrt"
 /Yc"SharedPCH.CoreUObject.RTTI.Cpp20.h"
-/Fp"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.pch"
-/Fo"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.obj"
-/experimental:log "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.sarif"
-/sourceDependencies "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.dep.json"
+/Fp"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.pch"
+/Fo"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.obj"
+/experimental:log "G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.sarif"
+/sourceDependencies "G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/CoreUObject/SharedPCH.CoreUObject.RTTI.Cpp20.h.dep.json"
 /nologo
 /Oi
 /FC

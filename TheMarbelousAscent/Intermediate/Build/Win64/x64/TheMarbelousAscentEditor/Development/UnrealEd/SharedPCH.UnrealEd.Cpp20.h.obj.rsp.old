@@ -1,4 +1,4 @@
-"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.cpp"
+"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.cpp"
 /I "."
 /I "../Intermediate/Build/Win64/UnrealEditor/Inc/UnrealEd/UHT"
 /I "Programs/UnrealLightmass/Public"
@@ -312,16 +312,16 @@
 /external:I "ThirdParty/LibTiff/Source/Win64"
 /external:I "ThirdParty/LibTiff/Source"
 /external:I "ThirdParty/OpenGL"
-/external:I "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.44.35207/INCLUDE"
+/external:I "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/INCLUDE"
 /external:I "C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt"
 /external:I "C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared"
 /external:I "C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/um"
 /external:I "C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/winrt"
 /Yc"SharedPCH.UnrealEd.Cpp20.h"
-/Fp"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.pch"
-/Fo"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.obj"
-/experimental:log "C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.sarif"
-/sourceDependencies "C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.dep.json"
+/Fp"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.pch"
+/Fo"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.obj"
+/experimental:log "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.sarif"
+/sourceDependencies "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Cpp20.h.dep.json"
 /nologo
 /Oi
 /FC

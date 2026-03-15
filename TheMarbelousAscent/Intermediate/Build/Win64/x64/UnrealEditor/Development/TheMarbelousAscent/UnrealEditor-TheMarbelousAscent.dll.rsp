@@ -36,10 +36,10 @@
 /FUNCTIONPADMIN:6
 /NOIMPLIB
 /NOEXP
-"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
-"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.cpp.obj"
-"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
-"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Default.rc2.res"
+"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
+"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.cpp.obj"
+"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
+"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Default.rc2.res"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/Core/UnrealEditor-Core.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/CoreUObject/UnrealEditor-CoreUObject.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/Engine/UnrealEditor-Engine.lib"
@@ -70,6 +70,6 @@
 "synchronization.lib"
 "dwmapi.lib"
 "imm32.lib"
-/OUT:"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.dll"
-/PDB:"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.pdb"
+/OUT:"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.dll"
+/PDB:"G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Binaries/Win64/UnrealEditor-TheMarbelousAscent.pdb"
 /ignore:4078

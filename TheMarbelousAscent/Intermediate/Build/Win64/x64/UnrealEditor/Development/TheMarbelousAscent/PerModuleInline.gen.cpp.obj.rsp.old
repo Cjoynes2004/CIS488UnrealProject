@@ -1,12 +1,12 @@
-"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp"
-@"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.Shared.rsp"
-/FI"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h"
-/FI"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Definitions.TheMarbelousAscent.h"
-/Yu"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h"
-/Fp"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.pch"
-/Fo"C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
-/experimental:log "C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.sarif"
-/sourceDependencies "C:/Users/cjoyn/OneDrive/Documents/Unreal Projects/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.dep.json"
+"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp"
+@"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/TheMarbelousAscent.Shared.rsp"
+/FI"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h"
+/FI"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/Definitions.TheMarbelousAscent.h"
+/Yu"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h"
+/Fp"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.pch"
+/Fo"C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.obj"
+/experimental:log "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.sarif"
+/sourceDependencies "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/UnrealEditor/Development/TheMarbelousAscent/PerModuleInline.gen.cpp.dep.json"
 /nologo
 /Oi
 /FC

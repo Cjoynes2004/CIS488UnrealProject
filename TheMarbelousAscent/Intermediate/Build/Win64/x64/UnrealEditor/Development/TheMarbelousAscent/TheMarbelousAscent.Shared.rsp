@@ -1,5 +1,5 @@
 /I "."
-/I "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Source"
+/I "G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Source"
 /I "Runtime/Core/Public"
 /I "Runtime/TraceLog/Public"
 /I "Runtime/AutoRTFM/Public"
@@ -287,7 +287,7 @@
 /I "../Plugins/EnhancedInput/Intermediate/Build/Win64/UnrealEditor/Inc/EnhancedInput/UHT"
 /I "../Plugins/EnhancedInput/Source"
 /I "../Plugins/EnhancedInput/Source/EnhancedInput/Public"
-/I "C:/Projects/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd"
+/I "G:/Unreal Projects/CIS488UnrealProject/CIS488UnrealProject/TheMarbelousAscent/Intermediate/Build/Win64/x64/TheMarbelousAscentEditor/Development/UnrealEd"
 /external:W0
 /external:I "ThirdParty/GuidelinesSupportLibrary/GSL-1144/include"
 /external:I "ThirdParty/AtomicQueue"
