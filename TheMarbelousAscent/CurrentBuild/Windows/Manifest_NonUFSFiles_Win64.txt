@@ -1,7 +1,7 @@
 TheMarbelousAscent/Binaries/Win64/D3D12/x64/D3D12Core.dll	2026-02-13T23:46:05.119Z
 TheMarbelousAscent/Binaries/Win64/D3D12/x64/d3d12SDKLayers.dll	2026-02-13T23:46:05.129Z
 TheMarbelousAscent/Binaries/Win64/DML/x64/DirectML.dll	2026-02-13T23:45:50.714Z
-TheMarbelousAscent/Binaries/Win64/TheMarbelousAscent-Win64-Shipping.exe	2026-03-21T05:48:41.648Z
+TheMarbelousAscent/Binaries/Win64/TheMarbelousAscent-Win64-Shipping.exe	2026-03-24T20:12:08.182Z
 TheMarbelousAscent/Binaries/Win64/tbb12.dll	2026-02-13T23:45:53.760Z
 TheMarbelousAscent/Binaries/Win64/tbbmalloc.dll	2026-02-13T23:45:53.761Z
 Engine/Extras/Redist/en-us/vc_redist.x64.exe	2026-02-13T23:42:41.271Z
@@ -16,5 +16,5 @@ Engine/Binaries/ThirdParty/Windows/XAudio2_9/x64/xaudio2_9redist.dll	2026-02-13T
 Engine/Content/Renderer/TessellationTable.bin	2026-02-13T23:42:17.487Z
 Engine/Content/Slate/Cursor/invisible.cur	2026-02-13T23:42:17.710Z
 Engine/Plugins/NNE/NNERuntimeORT/Binaries/ThirdParty/Onnxruntime/Win64/onnxruntime.dll	2026-02-13T23:44:35.081Z
-Engine/Config/StagedBuild_TheMarbelousAscent.ini	2026-03-21T05:49:57.858Z
-TheMarbelousAscent.exe	2026-03-21T05:49:57.849Z
+Engine/Config/StagedBuild_TheMarbelousAscent.ini	2026-03-24T20:12:46.994Z
+TheMarbelousAscent.exe	2026-03-24T20:12:46.910Z
