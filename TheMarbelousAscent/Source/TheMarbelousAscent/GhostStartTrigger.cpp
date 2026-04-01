@@ -1,9 +1,11 @@
 #include "GhostStartTrigger.h"
 #include "GhostRacerMarble.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/AudioComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/Engine.h"
+#include "Sound/SoundWave.h"
 
 AGhostStartTrigger::AGhostStartTrigger()
 {
@@ -15,8 +17,17 @@ AGhostStartTrigger::AGhostStartTrigger()
 	ButtonColor = FLinearColor(0.0f, 1.0f, 0.3f, 1.0f);
 	CountdownDuration = 3.0f;
 	CountdownTimer = 0.0f;
+	LastDisplayedNumber = 0;
 	CachedPlayerPawn = nullptr;
 	CachedPlayerPhysicsComp = nullptr;
+	CountdownTickSound = nullptr;
+	CountdownGoSound = nullptr;
+	RollingSound = nullptr;
+	LandingSound = nullptr;
+	CountdownAudioComp = nullptr;
+	RollingAudioComp = nullptr;
+	BGMAudioComp = nullptr;
+	bPlayerWasInAir = false;
 
 	// Side-by-side at first platform
 	PlayerStartPosition = FVector(-780.0f, -40.0f, 400.0f);
@@ -51,6 +62,23 @@ void AGhostStartTrigger::BeginPlay()
 		}
 	}
 
+	// Load sounds
+	CountdownTickSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/countdown_04.countdown_04"));
+	CountdownGoSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/countdown_02.countdown_02"));
+	RollingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/normal_sfx_rolling.normal_sfx_rolling"));
+	if (RollingSound)
+	{
+		RollingSound->bLooping = true;
+	}
+	LandingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/normal_sfx_landing.normal_sfx_landing"));
+
+	// Start BGM
+	USoundWave* BGMSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/tutorial_bgm_01.tutorial_bgm_01"));
+	if (BGMSound)
+	{
+		BGMAudioComp = UGameplayStatics::SpawnSound2D(GetWorld(), BGMSound, 0.15f, 1.0f, 0.0f);
+	}
+
 	// Apply button color with glow
 	if (ButtonMesh)
 	{
@@ -73,11 +101,14 @@ void AGhostStartTrigger::Tick(float DeltaTime)
 	{
 	case ERaceState::WaitingForTrigger:
 		TickWaitingForTrigger(DeltaTime);
+		UpdatePlayerAudio();
 		break;
 	case ERaceState::Countdown:
 		TickCountdown(DeltaTime);
 		break;
 	case ERaceState::Racing:
+		UpdatePlayerAudio();
+		break;
 	case ERaceState::Finished:
 		break;
 	}
@@ -101,6 +132,13 @@ void AGhostStartTrigger::TickWaitingForTrigger(float DeltaTime)
 		// Cache player references
 		CachedPlayerPawn = PlayerPawn;
 		CachedPlayerPhysicsComp = PhysComp;
+
+		// Stop rolling sound during countdown
+		if (RollingAudioComp)
+		{
+			RollingAudioComp->Stop();
+			RollingAudioComp = nullptr;
+		}
 
 		// Freeze player: stop physics and input
 		if (CachedPlayerPhysicsComp)
@@ -132,6 +170,7 @@ void AGhostStartTrigger::TickWaitingForTrigger(float DeltaTime)
 		// Dim button and start countdown
 		DimButton();
 		CountdownTimer = CountdownDuration;
+		LastDisplayedNumber = 0;
 		RaceState = ERaceState::Countdown;
 	}
 }
@@ -149,14 +188,40 @@ void AGhostStartTrigger::TickCountdown(float DeltaTime)
 			GEngine->AddOnScreenDebugMessage(42, 0.5f, FColor::Yellow,
 				CountdownText, true, FVector2D(5.0f, 5.0f));
 		}
+
+		// Play tick sound on each number change — stop previous first
+		if (DisplayNumber != LastDisplayedNumber)
+		{
+			LastDisplayedNumber = DisplayNumber;
+			if (CountdownAudioComp)
+			{
+				CountdownAudioComp->Stop();
+			}
+			if (CountdownTickSound)
+			{
+				CountdownAudioComp = UGameplayStatics::SpawnSound2D(GetWorld(), CountdownTickSound, 0.5f);
+			}
+		}
 	}
 	else
 	{
+		// Stop any lingering countdown tick
+		if (CountdownAudioComp)
+		{
+			CountdownAudioComp->Stop();
+			CountdownAudioComp = nullptr;
+		}
+
 		// GO!
 		if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(42, 1.5f, FColor::Green,
 				TEXT("GO!"), true, FVector2D(5.0f, 5.0f));
+		}
+
+		if (CountdownGoSound)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), CountdownGoSound, 0.6f);
 		}
 
 		// Unfreeze player
@@ -178,6 +243,84 @@ void AGhostStartTrigger::TickCountdown(float DeltaTime)
 		}
 
 		RaceState = ERaceState::Racing;
+	}
+}
+
+void AGhostStartTrigger::UpdatePlayerAudio()
+{
+	APawn* PlayerPawn = CachedPlayerPawn;
+	if (!PlayerPawn)
+	{
+		PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	}
+	if (!PlayerPawn) return;
+
+	UPrimitiveComponent* PhysComp = CachedPlayerPhysicsComp;
+	if (!PhysComp)
+	{
+		PhysComp = FindPlayerPhysicsComp(PlayerPawn);
+	}
+	if (!PhysComp) return;
+
+	FVector Velocity = PhysComp->GetPhysicsLinearVelocity();
+	float HorizontalSpeed = FVector(Velocity.X, Velocity.Y, 0.0f).Size();
+	float DT = GetWorld()->GetDeltaSeconds();
+
+	// Use a line trace to detect actual ground contact
+	FVector TraceStart = PhysComp->GetComponentLocation();
+	FVector TraceEnd = TraceStart - FVector(0.0f, 0.0f, 80.0f);
+	FHitResult Hit;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(CachedPlayerPawn ? CachedPlayerPawn : UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	bool bConfirmedOnGround = GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, ECC_WorldStatic, Params);
+	bool bIsFalling = Velocity.Z < -150.0f;
+
+	// Rolling sound
+	if (HorizontalSpeed > 50.0f && bConfirmedOnGround)
+	{
+		if (!RollingAudioComp && RollingSound)
+		{
+			float Vol = FMath::Clamp(HorizontalSpeed / 800.0f, 0.1f, 0.5f);
+			RollingAudioComp = UGameplayStatics::SpawnSound2D(GetWorld(), RollingSound, Vol);
+		}
+		else if (RollingAudioComp)
+		{
+			float Vol = FMath::Clamp(HorizontalSpeed / 800.0f, 0.1f, 0.5f);
+			RollingAudioComp->SetVolumeMultiplier(Vol);
+		}
+	}
+	else if (RollingAudioComp)
+	{
+		RollingAudioComp->FadeOut(0.15f, 0.0f);
+		RollingAudioComp = nullptr;
+	}
+
+	// Landing sound: only after sustained falling, then hitting ground
+	static float FallingTime = 0.0f;
+	static float LandingCooldown = 0.0f;
+
+	if (LandingCooldown > 0.0f)
+	{
+		LandingCooldown -= DT;
+	}
+
+	if (bIsFalling)
+	{
+		FallingTime += DT;
+	}
+	else if (bConfirmedOnGround)
+	{
+		// Only trigger landing if we were falling for at least 0.15 seconds
+		if (FallingTime > 0.15f && LandingCooldown <= 0.0f)
+		{
+			if (LandingSound)
+			{
+				UGameplayStatics::PlaySoundAtLocation(
+					GetWorld(), LandingSound, PhysComp->GetComponentLocation(), 0.25f);
+				LandingCooldown = 0.5f;
+			}
+		}
+		FallingTime = 0.0f;
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "GhostStartTrigger.generated.h"
 
+class UAudioComponent;
 class UBoxComponent;
 class UStaticMeshComponent;
 class AGhostRacerMarble;
@@ -19,6 +20,7 @@ enum class ERaceState : uint8
 
 // Place this near the start of the level. When the player marble rolls over it,
 // both player and ghost are placed side-by-side, a countdown plays, then the race begins.
+// Also manages level BGM and player rolling/landing sounds.
 UCLASS()
 class THEMARBELOUSASCENT_API AGhostStartTrigger : public AActor
 {
@@ -38,15 +40,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost")
 	FLinearColor ButtonColor;
 
-	// Where to place the player at race start
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost|Race Start")
 	FVector PlayerStartPosition;
 
-	// Where to place the ghost at race start
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost|Race Start")
 	FVector GhostStartPosition;
 
-	// Seconds to count down before GO
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost|Race Start")
 	float CountdownDuration;
 
@@ -59,13 +58,32 @@ private:
 
 	ERaceState RaceState;
 	float CountdownTimer;
+	int32 LastDisplayedNumber;
 
 	// Cached during trigger
 	APawn* CachedPlayerPawn;
 	UPrimitiveComponent* CachedPlayerPhysicsComp;
 
+	// Sounds
+	USoundWave* CountdownTickSound;
+	USoundWave* CountdownGoSound;
+	USoundWave* RollingSound;
+	USoundWave* LandingSound;
+
+	UPROPERTY()
+	UAudioComponent* CountdownAudioComp;
+
+	UPROPERTY()
+	UAudioComponent* RollingAudioComp;
+
+	UPROPERTY()
+	UAudioComponent* BGMAudioComp;
+
+	bool bPlayerWasInAir;
+
 	void TickWaitingForTrigger(float DeltaTime);
 	void TickCountdown(float DeltaTime);
+	void UpdatePlayerAudio();
 	void DimButton();
 	UPrimitiveComponent* FindPlayerPhysicsComp(APawn* Pawn) const;
 };
