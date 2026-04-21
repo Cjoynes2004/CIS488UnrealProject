@@ -63,17 +63,17 @@ void AGhostStartTrigger::BeginPlay()
 	}
 
 	// Load sounds
-	CountdownTickSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/countdown_04.countdown_04"));
-	CountdownGoSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/countdown_02.countdown_02"));
-	RollingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/normal_sfx_rolling.normal_sfx_rolling"));
+	CountdownTickSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/SFX/Countdown/countdown_04.countdown_04"));
+	CountdownGoSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/SFX/Countdown/countdown_02.countdown_02"));
+	RollingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/SFX/Rolling/normal_sfx_rolling.normal_sfx_rolling"));
 	if (RollingSound)
 	{
 		RollingSound->bLooping = true;
 	}
-	LandingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/normal_sfx_landing.normal_sfx_landing"));
+	LandingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/SFX/Landing/normal_sfx_landing.normal_sfx_landing"));
 
 	// Start BGM
-	USoundWave* BGMSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sound_Effects/tutorial_bgm_01.tutorial_bgm_01"));
+	USoundWave* BGMSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/Music/Tutorial/tutorial_bgm_01.tutorial_bgm_01"));
 	if (BGMSound)
 	{
 		BGMAudioComp = UGameplayStatics::SpawnSound2D(GetWorld(), BGMSound, 0.15f, 1.0f, 0.0f);
