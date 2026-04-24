@@ -5,7 +5,6 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
-#include "Engine/Engine.h"
 #include "Materials/MaterialInstanceDynamic.h"
 
 AGhostRacerMarble::AGhostRacerMarble()
@@ -177,25 +176,6 @@ void AGhostRacerMarble::Tick(float DeltaTime)
 	if (bIsPlaying)
 	{
 		UpdatePlayback(DeltaTime);
-
-		// Observation log: dump ghost + player positions every 0.5s so we can
-		// reconstruct the race offline.
-		static float LastObsTime = -1.0f;
-		float NowTime = GetWorld()->GetTimeSeconds();
-		if (NowTime - LastObsTime > 0.5f || LastObsTime < 0.0f)
-		{
-			LastObsTime = NowTime;
-			FVector GLoc = GetActorLocation();
-			FVector PLoc = FVector::ZeroVector;
-			if (APawn* PP = UGameplayStatics::GetPlayerPawn(GetWorld(), 0))
-			{
-				PLoc = PP->GetActorLocation();
-			}
-			UE_LOG(LogTemp, Log,
-				TEXT("GHOST_OBS t=%.2f pt=%.2f idx=%d ghost=%.0f,%.0f,%.0f player=%.0f,%.0f,%.0f"),
-				NowTime, PlaybackTime, CurrentSampleIndex,
-				GLoc.X, GLoc.Y, GLoc.Z, PLoc.X, PLoc.Y, PLoc.Z);
-		}
 	}
 }
 
@@ -303,13 +283,6 @@ void AGhostRacerMarble::UpdatePlayback(float DeltaTime)
 			}
 		}
 
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(
-				931, 0.0f, FColor::Cyan,
-				FString::Printf(TEXT("Ghost RB: heightDiff=%.0f  scale=%.2fx  pawn=%s"),
-					HeightDiff, SpeedScale, *PlayerPawn->GetName()));
-		}
 	}
 
 	PlaybackTime += DeltaTime * SpeedScale;
