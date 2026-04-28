@@ -72,12 +72,6 @@ void AGhostStartTrigger::BeginPlay()
 	}
 	LandingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/SFX/Landing/normal_sfx_landing.normal_sfx_landing"));
 
-	// Start BGM
-	USoundWave* BGMSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/Music/Tutorial/tutorial_bgm_01.tutorial_bgm_01"));
-	if (BGMSound)
-	{
-		BGMAudioComp = UGameplayStatics::SpawnSound2D(GetWorld(), BGMSound, 0.15f, 1.0f, 0.0f);
-	}
 
 	// Apply button color with glow
 	if (ButtonMesh)
