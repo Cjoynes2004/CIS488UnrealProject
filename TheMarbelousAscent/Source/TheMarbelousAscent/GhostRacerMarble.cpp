@@ -142,8 +142,15 @@ void AGhostRacerMarble::BeginPlay()
 			}
 			if (BestPlatform)
 			{
+				// Use the bounds origin (which tracks the visible mesh component
+				// even when a MovingPlatform's actor root is fixed at world origin
+				// while a child mesh component does the moving) instead of
+				// GetActorLocation, otherwise offsets are never updated and the
+				// ghost stays pinned to the actor root.
+				FVector BOrigin, BExtent;
+				BestPlatform->GetActorBounds(false, BOrigin, BExtent);
 				SamplePlatforms[i] = BestPlatform;
-				SampleOffsets[i] = SampleLoc - BestPlatform->GetActorLocation();
+				SampleOffsets[i] = SampleLoc - BOrigin;
 				AttachedCount++;
 			}
 		}
@@ -160,7 +167,9 @@ FVector AGhostRacerMarble::GetAdjustedSampleLocation(int32 SampleIdx) const
 {
 	if (SampleIdx >= 0 && SampleIdx < SamplePlatforms.Num() && SamplePlatforms[SampleIdx])
 	{
-		return SamplePlatforms[SampleIdx]->GetActorLocation() + SampleOffsets[SampleIdx];
+		FVector BOrigin, BExtent;
+		SamplePlatforms[SampleIdx]->GetActorBounds(false, BOrigin, BExtent);
+		return BOrigin + SampleOffsets[SampleIdx];
 	}
 	if (SampleIdx >= 0 && SampleIdx < GhostRun.Samples.Num())
 	{
@@ -228,6 +237,14 @@ void AGhostRacerMarble::LoadAndPlay()
 		}
 		GhostRun.Samples.Insert(StartSample, 0);
 		GhostRun.FinalTime += TransitionTime;
+
+		// The platform-binding arrays are indexed by sample index. Insert a
+		// no-binding entry at 0 so they stay aligned after the StartSample
+		// shifts every other sample's index up by one — without this, every
+		// sample on a moving platform reads the offset meant for its
+		// neighbor, causing visible teleports on moving-platform sections.
+		SamplePlatforms.Insert(nullptr, 0);
+		SampleOffsets.Insert(FVector::ZeroVector, 0);
 
 		bIsPlaying = true;
 		PlaybackTime = 0.0f;
@@ -700,7 +717,7 @@ FGhostRun AGhostRacerMarble::GenerateStaffGhost() const
 		// creates stacked sub-arcs with discontinuous velocity at each boundary
 		// (the "jagged" look). Only subdivide flat rolls, where sub-segments are
 		// collinear and subdivision just adds sample points.
-		bool bOrigJump = (D.Z > 30.0f) || (D.Z < -400.0f) || (Horiz > 2000.0f && D.Z < -100.0f);
+		bool bOrigJump = (D.Z > 30.0f) || (D.Z < -400.0f) || (Horiz > 2000.0f && D.Z < -100.0f) || (Horiz > 3000.0f);
 		int32 Subs = bOrigJump ? 1 : FMath::Max(1, FMath::CeilToInt(Horiz / MaxSegHoriz));
 		for (int32 s = 1; s <= Subs; s++)
 		{
@@ -740,7 +757,7 @@ FGhostRun AGhostRacerMarble::GenerateStaffGhost() const
 		// Gentle descents / flat moves use linear interp (rolling, ice sliding).
 		// Big drops need projectile so the ball accelerates toward the ground instead of
 		// sliding down at constant velocity (which looks floaty).
-		bool bIsJump = (HeightDiff > 30.0f) || (HeightDiff < -400.0f) || (HorizDist > 2000.0f && HeightDiff < -100.0f);
+		bool bIsJump = (HeightDiff > 30.0f) || (HeightDiff < -400.0f) || (HorizDist > 2000.0f && HeightDiff < -100.0f) || (HorizDist > 3000.0f);
 
 		if (bIsJump)
 		{

@@ -1,11 +1,15 @@
 #include "GhostStartTrigger.h"
 #include "GhostRacerMarble.h"
+#include "RaceCountdownWidget.h"
+#include "RaceResultWidget.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/AudioComponent.h"
+#include "Components/PointLightComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/Engine.h"
 #include "Sound/SoundWave.h"
+#include "Blueprint/UserWidget.h"
 
 AGhostStartTrigger::AGhostStartTrigger()
 {
@@ -14,7 +18,7 @@ AGhostStartTrigger::AGhostStartTrigger()
 	RaceState = ERaceState::WaitingForTrigger;
 	GhostMarble = nullptr;
 	TriggerRadius = 200.0f;
-	ButtonColor = FLinearColor(0.0f, 1.0f, 0.3f, 1.0f);
+	ButtonColor = FLinearColor(1.0f, 0.1f, 0.1f, 1.0f);
 	CountdownDuration = 3.0f;
 	CountdownTimer = 0.0f;
 	LastDisplayedNumber = 0;
@@ -27,11 +31,21 @@ AGhostStartTrigger::AGhostStartTrigger()
 	CountdownAudioComp = nullptr;
 	RollingAudioComp = nullptr;
 	BGMAudioComp = nullptr;
+	CountdownWidget = nullptr;
+	ResultWidget = nullptr;
 	bPlayerWasInAir = false;
+	RaceStartGameTime = 0.0f;
+	ButtonPulseTime = 0.0f;
+	DebugScreenshotTimer = 0.0f;
+	DebugScreenshotCount = 0;
 
 	// Side-by-side at first platform
 	PlayerStartPosition = FVector(-780.0f, -40.0f, 400.0f);
 	GhostStartPosition = FVector(-780.0f, 160.0f, 400.0f);
+
+	// Finish line: Cube136 sits at (-1045, 5780, ~20760).
+	FinishLineLocation = FVector(-1045.0f, 5780.0f, 20760.0f);
+	FinishLineRadius = 400.0f;
 
 	// Visible button platform
 	ButtonMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ButtonMesh"));
@@ -45,6 +59,17 @@ AGhostStartTrigger::AGhostStartTrigger()
 	{
 		ButtonMesh->SetStaticMesh(CylinderMesh.Object);
 	}
+
+	// Point light supplies the visible "glow" since cylinder mesh materials
+	// rarely expose an emissive param. Pulse intensity in UpdateButtonPulse.
+	GlowLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("GlowLight"));
+	GlowLight->SetupAttachment(ButtonMesh);
+	GlowLight->SetRelativeLocation(FVector(0.0f, 0.0f, 80.0f));
+	GlowLight->SetAttenuationRadius(700.0f);
+	GlowLight->SetSourceRadius(40.0f);
+	GlowLight->SetCastShadows(false);
+	GlowLight->SetIntensity(2500.0f);
+	GlowLight->SetLightColor(ButtonColor);
 }
 
 void AGhostStartTrigger::BeginPlay()
@@ -72,19 +97,19 @@ void AGhostStartTrigger::BeginPlay()
 	}
 	LandingSound = LoadObject<USoundWave>(nullptr, TEXT("/Game/Sounds/SFX/Landing/normal_sfx_landing.normal_sfx_landing"));
 
-
-	// Apply button color with glow
+	// Apply a project material that's actually red on the cylinder. The
+	// "glow" is provided by the attached PointLight; the mesh just needs a
+	// solid red surface that catches the light convincingly.
 	if (ButtonMesh)
 	{
-		UMaterialInterface* BaseMat = ButtonMesh->GetMaterial(0);
+		UMaterialInterface* BaseMat =
+			LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Materials/Red.Red"));
 		if (BaseMat)
 		{
-			UMaterialInstanceDynamic* DynMat = UMaterialInstanceDynamic::Create(BaseMat, this);
-			DynMat->SetVectorParameterValue(TEXT("BaseColor"), ButtonColor);
-			DynMat->SetVectorParameterValue(TEXT("EmissiveColor"), ButtonColor * 2.0f);
-			ButtonMesh->SetMaterial(0, DynMat);
+			ButtonMesh->SetMaterial(0, BaseMat);
 		}
 	}
+
 }
 
 void AGhostStartTrigger::Tick(float DeltaTime)
@@ -95,12 +120,14 @@ void AGhostStartTrigger::Tick(float DeltaTime)
 	{
 	case ERaceState::WaitingForTrigger:
 		TickWaitingForTrigger(DeltaTime);
+		UpdateButtonPulse(DeltaTime);
 		UpdatePlayerAudio();
 		break;
 	case ERaceState::Countdown:
 		TickCountdown(DeltaTime);
 		break;
 	case ERaceState::Racing:
+		TickRacing(DeltaTime);
 		UpdatePlayerAudio();
 		break;
 	case ERaceState::Finished:
@@ -166,6 +193,19 @@ void AGhostStartTrigger::TickWaitingForTrigger(float DeltaTime)
 		CountdownTimer = CountdownDuration;
 		LastDisplayedNumber = 0;
 		RaceState = ERaceState::Countdown;
+
+		// Bring up the countdown HUD. Use the user-supplied widget class if
+		// one was provided (lets designers override visuals), otherwise spawn
+		// the built-in self-constructing widget.
+		if (PC)
+		{
+			UClass* WidgetClass = CountdownWidgetClass ? CountdownWidgetClass.Get() : URaceCountdownWidget::StaticClass();
+			CountdownWidget = CreateWidget<URaceCountdownWidget>(PC, WidgetClass);
+			if (CountdownWidget)
+			{
+				CountdownWidget->AddToViewport(50);
+			}
+		}
 	}
 }
 
@@ -176,12 +216,6 @@ void AGhostStartTrigger::TickCountdown(float DeltaTime)
 	if (CountdownTimer > 0.0f)
 	{
 		int32 DisplayNumber = FMath::CeilToInt(CountdownTimer);
-		FString CountdownText = FString::Printf(TEXT("%d"), DisplayNumber);
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(42, 0.5f, FColor::Yellow,
-				CountdownText, true, FVector2D(5.0f, 5.0f));
-		}
 
 		// Play tick sound on each number change — stop previous first
 		if (DisplayNumber != LastDisplayedNumber)
@@ -195,6 +229,17 @@ void AGhostStartTrigger::TickCountdown(float DeltaTime)
 			{
 				CountdownAudioComp = UGameplayStatics::SpawnSound2D(GetWorld(), CountdownTickSound, 0.5f);
 			}
+
+			if (CountdownWidget)
+			{
+				CountdownWidget->ShowNumber(DisplayNumber);
+			}
+			else if (GEngine)
+			{
+				FString CountdownText = FString::Printf(TEXT("%d"), DisplayNumber);
+				GEngine->AddOnScreenDebugMessage(42, 0.5f, FColor::Yellow,
+					CountdownText, true, FVector2D(5.0f, 5.0f));
+			}
 		}
 	}
 	else
@@ -207,7 +252,24 @@ void AGhostStartTrigger::TickCountdown(float DeltaTime)
 		}
 
 		// GO!
-		if (GEngine)
+		if (CountdownWidget)
+		{
+			CountdownWidget->ShowGo();
+			// Tear it down after a short grace period.
+			FTimerHandle TimerHandle;
+			TWeakObjectPtr<URaceCountdownWidget> WidgetPtr = CountdownWidget;
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle,
+				FTimerDelegate::CreateLambda([WidgetPtr]()
+				{
+					if (WidgetPtr.IsValid())
+					{
+						WidgetPtr->RemoveFromParent();
+					}
+				}),
+				1.5f, false);
+			CountdownWidget = nullptr;
+		}
+		else if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(42, 1.5f, FColor::Green,
 				TEXT("GO!"), true, FVector2D(5.0f, 5.0f));
@@ -236,8 +298,109 @@ void AGhostStartTrigger::TickCountdown(float DeltaTime)
 			GhostMarble->LoadAndPlay();
 		}
 
+		RaceStartGameTime = GetWorld()->GetTimeSeconds();
 		RaceState = ERaceState::Racing;
 	}
+}
+
+void AGhostStartTrigger::TickRacing(float DeltaTime)
+{
+	APawn* PlayerPawn = CachedPlayerPawn ? CachedPlayerPawn : UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	if (!PlayerPawn)
+	{
+		return;
+	}
+
+	UPrimitiveComponent* PhysComp = CachedPlayerPhysicsComp;
+	if (!PhysComp)
+	{
+		PhysComp = FindPlayerPhysicsComp(PlayerPawn);
+	}
+	const FVector PlayerPos = PhysComp ? PhysComp->GetComponentLocation() : PlayerPawn->GetActorLocation();
+
+	if (FVector::Dist(PlayerPos, FinishLineLocation) <= FinishLineRadius)
+	{
+		// Player won iff the ghost is still mid-playback.
+		const bool bPlayerWon = GhostMarble && GhostMarble->IsPlaying();
+		FinishRace(bPlayerWon);
+		return;
+	}
+
+	// If the ghost finishes its run before the player crosses the line, end
+	// the race immediately as a loss so the player gets the result screen
+	// without having to keep rolling to Cube136.
+	if (GhostMarble && !GhostMarble->IsPlaying())
+	{
+		FinishRace(false);
+	}
+}
+
+void AGhostStartTrigger::FinishRace(bool bPlayerWon)
+{
+	// Idempotent: once the race has been called, never re-call. Prevents a
+	// "ghost wins" screen from appearing after the player already won.
+	if (RaceState == ERaceState::Finished)
+	{
+		return;
+	}
+
+	const float PlayerSeconds = GetWorld()->GetTimeSeconds() - RaceStartGameTime;
+	// "Ghost finished" means it ran the entire path before the player crossed
+	// the goal. If it was still mid-playback, its elapsed time is meaningless
+	// to the player and we hide it from the result widget.
+	const bool bGhostFinished = GhostMarble && !GhostMarble->IsPlaying();
+	const float GhostSeconds = GhostMarble ? GhostMarble->GetElapsedTime() : 0.0f;
+
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	if (PC)
+	{
+		UClass* WidgetClass = ResultWidgetClass ? ResultWidgetClass.Get() : URaceResultWidget::StaticClass();
+		ResultWidget = CreateWidget<URaceResultWidget>(PC, WidgetClass);
+		if (ResultWidget)
+		{
+			ResultWidget->AddToViewport(60);
+			ResultWidget->ShowResult(bPlayerWon, PlayerSeconds, GhostSeconds, bGhostFinished);
+		}
+	}
+
+	if (GhostMarble && GhostMarble->IsPlaying())
+	{
+		GhostMarble->StopPlayback();
+	}
+
+	// Auto-dismiss the result widget after 20 seconds so it doesn't sit on
+	// the screen forever.
+	FTimerHandle DismissHandle;
+	TWeakObjectPtr<URaceResultWidget> WidgetPtr = ResultWidget;
+	GetWorld()->GetTimerManager().SetTimer(DismissHandle,
+		FTimerDelegate::CreateLambda([WidgetPtr]()
+		{
+			if (WidgetPtr.IsValid())
+			{
+				WidgetPtr->RemoveFromParent();
+			}
+		}),
+		20.0f, false);
+
+	RaceState = ERaceState::Finished;
+}
+
+void AGhostStartTrigger::UpdateButtonPulse(float DeltaTime)
+{
+	if (!GlowLight)
+	{
+		return;
+	}
+
+	// Soft pulse on the point light only — no scale change, no color change.
+	// Intensity sweeps between 1500 and 4000 lumens at 1.2 Hz, with the
+	// light's color tracking ButtonColor so the glow is unmistakably red.
+	ButtonPulseTime += DeltaTime;
+	const float PulseHz = 1.2f;
+	const float T = 0.5f * (1.0f + FMath::Sin(ButtonPulseTime * PulseHz * 2.0f * PI));
+	const float Intensity = FMath::Lerp(1500.0f, 4000.0f, T);
+	GlowLight->SetIntensity(Intensity);
+	GlowLight->SetLightColor(ButtonColor);
 }
 
 void AGhostStartTrigger::UpdatePlayerAudio()
@@ -320,13 +483,20 @@ void AGhostStartTrigger::UpdatePlayerAudio()
 
 void AGhostStartTrigger::DimButton()
 {
+	// Once the player has activated the trigger, kill the glow light and
+	// swap the button mesh to a darker material so it visually reads as
+	// "consumed" rather than "active".
+	if (GlowLight)
+	{
+		GlowLight->SetIntensity(0.0f);
+		GlowLight->SetVisibility(false);
+	}
 	if (ButtonMesh)
 	{
-		UMaterialInstanceDynamic* DynMat = Cast<UMaterialInstanceDynamic>(ButtonMesh->GetMaterial(0));
-		if (DynMat)
+		if (UMaterialInterface* DimMat = LoadObject<UMaterialInterface>(
+				nullptr, TEXT("/Game/Materials/Black.Black")))
 		{
-			DynMat->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor(0.3f, 0.3f, 0.3f, 1.0f));
-			DynMat->SetVectorParameterValue(TEXT("EmissiveColor"), FLinearColor::Black);
+			ButtonMesh->SetMaterial(0, DimMat);
 		}
 	}
 }
