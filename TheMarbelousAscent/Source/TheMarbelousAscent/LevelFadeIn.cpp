@@ -17,6 +17,14 @@ void ULevelFadeIn::OnWorldBeginPlay(UWorld& InWorld)
 {
 	Super::OnWorldBeginPlay(InWorld);
 
+	// Main menu has its own UI and shouldn't be covered by the fade widget,
+	// which would otherwise swallow clicks on the menu buttons.
+	const FString MapName = UGameplayStatics::GetCurrentLevelName(&InWorld, true);
+	if (MapName.Equals(TEXT("MainMenu"), ESearchCase::IgnoreCase))
+	{
+		return;
+	}
+
 	APlayerController* PC = UGameplayStatics::GetPlayerController(&InWorld, 0);
 	if (!PC)
 	{
